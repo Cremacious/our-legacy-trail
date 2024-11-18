@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 
 import Activity from '../activity/activity.component';
-import { fetchActivityData, refreshToken } from '../../utils/strava.utils';
+import { fetchActivityData, requestAccess } from '../../utils/strava.utils';
 // import { tempData } from '../../utils/temp-data';
 
 function Activities() {
@@ -29,7 +29,8 @@ function Activities() {
         <Activity key={activity.id} activity={activity} />
       ))}
       <button onClick={fetchActivity}>Fetch Data</button>
-      <button onClick={refreshToken}>Refresh Token</button>
+      {/* <button onClick={refreshToken}>Refresh Token</button> */}
+      <button onClick={requestAccess}>Request Access</button>
     </div>
   );
 }
