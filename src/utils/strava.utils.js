@@ -1,4 +1,4 @@
-const activity_token = '6ea3212e45bdf0854649f63fec9ef52182a5482b'
+const activity_token = 'a79bf8c3cb89790ef1554f23520a58d92fe68fcb';
 
 export async function fetchActivityData() {
   try {
@@ -17,6 +17,7 @@ export async function fetchActivityData() {
 
     const data = await response.json();
     console.log('Athlete Activities:', data);
+    return data;
   } catch (error) {
     console.error('Error fetching athlete stats:', error);
   }
