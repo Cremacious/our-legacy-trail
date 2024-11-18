@@ -12,10 +12,10 @@ function Activities() {
     setActivities(tempData);
   }, []);
 
-  // const fetchActivityData = async () => {
-  //   const data = await fetchActivityData()
-  //   setActivities(data)
-  // }
+  const fetchActivityData = async () => {
+    const data = await fetchActivityData();
+    console.log(data);
+  };
 
   return (
     <div>
@@ -23,10 +23,9 @@ function Activities() {
       {activities.map((activity) => (
         <Activity key={activity.id} activity={activity} />
       ))}
-      {/* <button onClick={fetchActivityData}>Fetch Data</button> */}
+      <button onClick={fetchActivityData}>Fetch Data</button>
     </div>
   );
 }
 
 export default Activities;
-
