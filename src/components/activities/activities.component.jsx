@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 
 import Activity from '../activity/activity.component';
-import { fetchActivityData } from '../../utils/strava.utils';
+import { fetchActivityData, refreshToken } from '../../utils/strava.utils';
 // import { tempData } from '../../utils/temp-data';
 
 function Activities() {
@@ -15,7 +15,9 @@ function Activities() {
   const fetchActivity = async () => {
     const data = await fetchActivityData();
     console.log('Data:', data);
-    setActivities(data);
+    if (data) {
+      setActivities(data);
+    }
 
     // setActivities(data);
   };
@@ -27,6 +29,7 @@ function Activities() {
         <Activity key={activity.id} activity={activity} />
       ))}
       <button onClick={fetchActivity}>Fetch Data</button>
+      <button onClick={refreshToken}>Refresh Token</button>
     </div>
   );
 }

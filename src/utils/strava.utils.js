@@ -1,18 +1,56 @@
-const activity_token = 'a79bf8c3cb89790ef1554f23520a58d92fe68fcb';
+// Authorization URL: https://www.strava.com/api/v3/oauth/authorize
+
+// Token URL: https://www.strava.com/api/v3/oauth/token
+
+const CLIENT_ID = '139244';
+const CLIENT_SECRET = 'd40128b97225afafe8fe1ed0b8243a04cb6f4562';
+const REFRESH_TOKEN = '75ee692e6a9200e188c3896f1a6a438291edae30';
+let ACCESS_TOKEN = '';
+
+export async function refreshToken() {
+  try {
+    const response = await fetch('https://www.strava.com/api/v3/oauth/token', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: new URLSearchParams({
+        client_id: CLIENT_ID,
+        client_secret: CLIENT_SECRET,
+        grant_type: 'refresh_token',
+        refresh_token: REFRESH_TOKEN,
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    console.log('Token:', data.access_token);
+    ACCESS_TOKEN = data.access_token;
+    return data.access_token;
+  } catch (error) {
+    console.error('Error refreshing token:', error);
+  }
+}
 
 export async function fetchActivityData() {
   try {
+    if (!ACCESS_TOKEN) {
+      await refreshToken();
+    }
     const response = await fetch(
       'https://www.strava.com/api/v3/athlete/activities?per_page=30',
       {
         headers: {
-          Authorization: `Bearer ${activity_token}`,
+          Authorization: `Bearer ${ACCESS_TOKEN}`,
         },
       }
     );
 
     if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+      throw new Error(`HTTP error!!!! status: ${response.status}`);
     }
 
     const data = await response.json();
