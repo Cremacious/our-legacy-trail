@@ -12,12 +12,18 @@ function Activities() {
     setActivities(tempData);
   }, []);
 
+  // const fetchActivityData = async () => {
+  //   const data = await fetchActivityData()
+  //   setActivities(data)
+  // }
+
   return (
     <div>
       <h2>Activities Here</h2>
       {activities.map((activity) => (
-        <Activity activity={activity} />
+        <Activity key={activity.id} activity={activity} />
       ))}
+      {/* <button onClick={fetchActivityData}>Fetch Data</button> */}
     </div>
   );
 }
