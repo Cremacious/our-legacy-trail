@@ -1,10 +1,9 @@
+import React from 'react';
+import { MapContainer, TileLayer, Polyline } from 'react-leaflet';
+import L from 'leaflet';
+import polyline from 'polyline';
+import 'leaflet/dist/leaflet.css';
 import './activity.styles.jsx';
-
-import {
-  ActivityButton,
-  ActivityRow,
-  ActivityCol,
-} from './activity.styles.jsx';
 
 function Activity({ activity }) {
   const {
@@ -15,7 +14,14 @@ function Activity({ activity }) {
     upload_id,
     distance,
     elapsed_time,
+    map,
   } = activity;
+
+  const decodedPolyline = map ? polyline.decode(map.summary_polyline) : [];
+  const polylineLatLngs = decodedPolyline.map((point) =>
+    L.latLng(point[0], point[1])
+  );
+
   return (
     <div>
       <h3>Activity</h3>
@@ -26,7 +32,19 @@ function Activity({ activity }) {
       <p>Upload ID: {upload_id}</p>
       <p>Distance: {distance}</p>
       <p>Elapsed Time: {elapsed_time}</p>
-      {/* <p>Map: {map}</p> */}
+      {map && (
+        <MapContainer
+          style={{ height: '400px', width: '100%' }}
+          center={polylineLatLngs[0]}
+          zoom={13}
+        >
+          <TileLayer
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          />
+          <Polyline positions={polylineLatLngs} color="blue" />
+        </MapContainer>
+      )}
     </div>
   );
 }
