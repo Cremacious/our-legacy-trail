@@ -3,7 +3,7 @@ import { MapContainer, TileLayer, Polyline } from 'react-leaflet';
 import L from 'leaflet';
 import polyline from 'polyline';
 import 'leaflet/dist/leaflet.css';
-import './activity.styles.jsx';
+import { ActivityContainer } from './activity.styles';
 
 function Activity({ activity }) {
   const {
@@ -23,8 +23,8 @@ function Activity({ activity }) {
   );
 
   return (
-    <div>
-      <h3>Activity</h3>
+    <ActivityContainer>
+      <h3>Activity in container</h3>
       <p>Activity Name: {name}</p>
       <p>Activity ID: {id}</p>
       <p>Max Speed: {max_speed}</p>
@@ -45,7 +45,7 @@ function Activity({ activity }) {
           <Polyline positions={polylineLatLngs} color="blue" />
         </MapContainer>
       )}
-    </div>
+    </ActivityContainer>
   );
 }
 
