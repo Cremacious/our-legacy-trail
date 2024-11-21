@@ -3,6 +3,12 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { Buffer } from 'buffer';
+if (typeof global !== 'undefined') {
+  global.Buffer = Buffer;
+} else if (typeof window !== 'undefined') {
+  window.Buffer = Buffer;
+}
 // index.js or App.js
 // import 'bootstrap/dist/css/bootstrap.min.css';
 
