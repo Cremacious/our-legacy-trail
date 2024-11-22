@@ -19,16 +19,22 @@ const SCOPE = 'activity:read_all,activity:write';
 // };
 
 export const getActivities = async () => {
-  const response = await fetch(
-    'https://www.strava.com/api/v3/athlete/activities',
-    {
-      headers: {
-        Authorization: `Bearer ${ACCESS_TOKEN}`,
-      },
-    }
-  );
-  const data = await response.json();
-  console.log(data);
+  try {
+    const response = await fetch(
+      'https://www.strava.com/api/v3/athlete/activities',
+      {
+        headers: {
+          Authorization: `Bearer ${ACCESS_TOKEN}`,
+        },
+      }
+    );
+    const data = await response.json();
+    console.log('Activities:', data);
+    return Array.isArray(data) ? data : [];
+  } catch (error) {
+    console.error('Error fetching activities:', error);
+    return [];
+  }
 };
 
 export const requestAccess = () => {

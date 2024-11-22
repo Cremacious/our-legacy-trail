@@ -17,8 +17,6 @@ function App() {
         <Home />
         {/* <button onClick={getAthlete}>Get Athlete Data</button> */}
         <br />
-        <button onClick={getActivities}>Get Activities</button>
-        <br />
         <button onClick={requestAccess}>Request Access</button>
         {/* <button onClick={testButton}>Test Button</button> */}
       </header>
